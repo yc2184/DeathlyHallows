@@ -1,4 +1,4 @@
-import os, randome, time 
+import os, random, time 
 path=os.getcwd()
 boardSize=50 #this changes the board size 
 gridrow=25
@@ -34,7 +34,7 @@ gridcol=30
     
 def setup():
     background(0)
-    size(boardSize*gridrow, boardsize*gridcol)
+    size(boardSize*gridrow, boardSize*gridcol)
     print(path)
     
 def draw():

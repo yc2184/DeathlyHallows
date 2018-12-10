@@ -1,8 +1,74 @@
+add_library('minim')
 import os, random, time 
 path=os.getcwd()
 boardSize=50 #this changes the board size 
-gridrow=25
-gridcol=30
+gridwidth=185
+gridheight=142
+player=Minim(this)
+#harry, ghost, professor, hallows (-> character class)
+#background assembly (-> background hidden/not hidden)
+#lives and time clock 
+
+class Grid:
+    def __init__(self,r,c,v,h):
+        self.r=r
+        self.c=c 
+        self.v=v #value
+        self.h=h #hidden or revealed 
+        self.img=loadImage(path+"/images/"+str(v)+".png")
+        
+    def display(self):
+        #if hidden, show grid (background)
+        #if clicked, show what's inside 
+        if self.h == True:
+            for v in range(36):
+                img=loadImage(path+"/images/"+str(v)+".png")
+                image(img,self.c*142,self.r*185)            
+        else:
+            img=loadImage(path+"/images/"+str(v)+".png")
+            image(img,self.c*142,self.r*185)
+            
+class Game:
+    def __init__(self):
+        self.numRows=7
+        self.numCols=5
+        self.grids=[]
+        self.game=False
+        self.music=player.loadFile(path+"/sounds/inside_bg.mp3")
+        self.music.play()
+        
+    def createboard(self):
+        cnt=0
+        for r in range(self.numRows):
+            for c in range(self.numCols):
+                self.grids.append(Grid(r,c,cnt,True))
+                cnt+=1
+                
+        #hiding three hallows,         
+        hallows=0
+        while hallows < 3:
+            hallowrow=random.randint(0,self.r-1)
+            hallowcol=random.randint(0,self.c-1)
+            
+            hallowgrid=self.getGrid(hallowrow,hallowcol)
+            if hallowgrid.v in range (40:43):
+                
+            
+            
+        
+# class Characters:
+#     def __init__(self,x,y,img,h):
+#         self.x=x
+#         self.y=y
+#         self.img=loadImage(path+"/images/"+img)
+#         self.h=h
+#         self.dir=1
+        
+
+
+        
+    
+        
 
 #How do we slice the image into smaller parts? -> al reem will work on slicing the picture 
 
@@ -30,26 +96,29 @@ gridcol=30
     #sounds for all of them 
     #winning conditions, losing conditions, and i will try to make basic setup (randomly assign the hallows, professors, and the ghosts)
     
-    
-    
+g= Game()
+
 def setup():
+    size(1295,710)
     background(0)
-    size(boardSize*gridrow, boardSize*gridcol)
-    print(path)
     
 def draw():
-    background(50)
-    if deathlyhallows.game == "Lose":
-        img=loadImage(path+"/images/"+"youlost.png")
-        image(img,50,50)
+    background(0)
+
+    
+    
+    
+    # if deathlyhallows.game == "Lose":
+    #     img=loadImage(path+"/images/"+"youlost.png")
+    #     image(img,50,50)
         
-    elif deathlyhallows.game == "Continue":
-        deathlyhallows.displayboard() 
+    # elif deathlyhallows.game == "Continue":
+    #     deathlyhallows.displayboard() 
         
-    elif deathlyhallows.game == "Win":
-        img=loadImage(path+"/images/"+"youwon.png")
-        image(img,50,50)
+    # elif deathlyhallows.game == "Win":
+    #     img=loadImage(path+"/images/"+"youwon.png")
+    #     image(img,50,50)
         
-def mouseClicked():
-    if deathlyhallows.game == "Continue":
-        deathlyhallows.openGrid(mouseY//gridcol,mouseX//gridrow)
+# def mouseClicked():
+#     if deathlyhallows.game == "Continue":
+#         deathlyhallows.openGrid(mouseY//gridwidth,mouseX//gridheight)

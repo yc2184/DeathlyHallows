@@ -33,7 +33,7 @@ class Game:
         self.numRows=7
         self.numCols=5
         self.grids=[]
-        self.game=False
+        self.game="Continue"
         # self.music=player.loadFile(path+"/sounds/inside_bg.mp3")
         # self.music.play()
         
@@ -84,6 +84,17 @@ class Game:
                 
                 professors += 1
         
+            
+    def getGrid(self,r,c):
+        for g in self.grids:
+            if g.r==r and g.c==c:
+                return g         
+        return None 
+    
+    def checkWin(self):
+        False 
+    
+        
 
 #How do we slice the image into smaller parts? -> al reem will work on slicing the picture 
 
@@ -111,7 +122,7 @@ class Game:
     #sounds for all of them 
     #winning conditions, losing conditions, and i will try to make basic setup (randomly assign the hallows, professors, and the ghosts)
     
-g= Game()
+g = Game()
 
 def setup():
     size(1295,710)
@@ -120,7 +131,9 @@ def setup():
 def draw():
     background(0)
 
-    
+def mouseClicked():
+    if deathlyhallows.game == "Continue":
+        deathlyhallows.openGrid(mouseY//142,mouseX//185)
     
     
     # if deathlyhallows.game == "Lose":

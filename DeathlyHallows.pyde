@@ -34,8 +34,8 @@ class Game:
         self.numCols=5
         self.grids=[]
         self.game=False
-        self.music=player.loadFile(path+"/sounds/inside_bg.mp3")
-        self.music.play()
+        # self.music=player.loadFile(path+"/sounds/inside_bg.mp3")
+        # self.music.play()
         
     def createboard(self):
         cnt=0
@@ -50,24 +50,39 @@ class Game:
             hallowrow=random.randint(0,self.r-1)
             hallowcol=random.randint(0,self.c-1)
             
+            #assign random grids with hallows 
             hallowgrid=self.getGrid(hallowrow,hallowcol)
-            if hallowgrid.v in range (40:43):
+            if hallowgrid.v != "40" or "41" or "42":
+                hallowgrid.v = random.choice("40","41","42")
                 
+                hallows += 1
             
+        #assign random grids with ghosts 
+        ghosts=0
+        while ghosts < 3:
+            ghostrow=random.randint(0,self.r-1)
+            ghostcol=random.randint(0,self.c-1)
             
-        
-# class Characters:
-#     def __init__(self,x,y,img,h):
-#         self.x=x
-#         self.y=y
-#         self.img=loadImage(path+"/images/"+img)
-#         self.h=h
-#         self.dir=1
-        
-
-
-        
-    
+            #assign random grids with ghosts 
+            ghostgrid=self.getGrid(ghostrow,ghostcol)
+            for i in range(4):
+                if ghostgrid.v != "36":
+                    ghostgrid.v = "36"
+                    
+                    ghosts+=1
+            
+        #assign random grids with professors 
+        professors = 0
+        while professors < 3: 
+            professorrow=random.randint(0,self.r-1)
+            professorcol=random.randint(0,self.c-1)
+            
+            #assign random grids with professors 
+            professorgrid=self.getGrid(professorrow,professorcol)
+            if professorgrid.v != "37" or "38" or "39":
+                professorgrid.v = random.choice("37","38","39")
+                
+                professors += 1
         
 
 #How do we slice the image into smaller parts? -> al reem will work on slicing the picture 

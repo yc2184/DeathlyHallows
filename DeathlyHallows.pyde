@@ -36,8 +36,11 @@ class Game:
         self.bgImg=loadImage(path+"/images/gamebackground.png")
         self.gsImg=loadImage(path+"/images/gamestart.png")
         self.state="Start"
-        # self.music=player.loadFile(path+"/sounds/inside_bg.mp3")
-        # self.music.play()
+        self.startMusic= player.loadFile(path+"/sounds/outside_bg.mp3")
+        self.playMusic = player.loadFile(path+"/sounds/inside_bg.mp3")
+        self.startMusic.rewind()
+        self.startMusic.play()
+        
         
     def createboard(self):
         cnt=1
@@ -178,6 +181,10 @@ def mouseClicked():
     if g.state == "Start":
         print("ssomething")
         g.state = "Play"
+        
+        g.startMusic.pause()
+        g.playMusic.rewind()
+        g.playMusic.play()
         
 
         

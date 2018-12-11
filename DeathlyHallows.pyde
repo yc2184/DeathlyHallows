@@ -163,9 +163,13 @@ def setup():
 def draw():
     
     background(0)
+    textSize(20)
     fill(0)
     ellipse(moveX,moveY,33,33)
     g.displayBoard()
+
+    if g.state == "Start":
+        text("Click anywhere to enter the castle",25,50)
 
 def mouseClicked():
     # if deathlyhallows.game == "Continue":

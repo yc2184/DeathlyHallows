@@ -15,74 +15,78 @@ class Grid:
         self.c=c 
         self.v=v #value
         self.h=h #hidden or revealed 
-        self.img=loadImage(path+"/images/"+str(v)+".png")
+        
         
     def display(self):
         #if hidden, show grid (background)
         #if clicked, show what's inside 
         if self.h == True:
-            for v in range(36):
-                img=loadImage(path+"/images/"+str(v)+".png")
-                image(img,self.c*142,self.r*185)            
-        else:
-            img=loadImage(path+"/images/"+str(v)+".png")
-            image(img,self.c*142,self.r*185)
+            if self.v != 10 and self.v != 15:
+                image(g.bgImg,self.c*100,self.r*100,100,100,self.c*100,self.r*100,self.c*100+100,self.r*100+100)            
+        # else:
+        #     image(self.img,self.c*142,self.r*185)
             
 class Game:
     def __init__(self):
+        
         self.numRows=7
-        self.numCols=5
+        self.numCols=10
         self.grids=[]
         self.game="Continue"
+        self.bgImg=loadImage(path+"/images/gamebackground.png")
         # self.music=player.loadFile(path+"/sounds/inside_bg.mp3")
         # self.music.play()
         
     def createboard(self):
-        cnt=0
+        cnt=1
         for r in range(self.numRows):
             for c in range(self.numCols):
                 self.grids.append(Grid(r,c,cnt,True))
                 cnt+=1
                 
-        #hiding three hallows,         
-        hallows=0
-        while hallows < 3:
-            hallowrow=random.randint(0,self.r-1)
-            hallowcol=random.randint(0,self.c-1)
+        # #hiding three hallows,         
+        # hallows=0
+        # while hallows < 3:
+        #     hallowrow=random.randint(0,self.numRows-1)
+        #     hallowcol=random.randint(0,self.numCols-1)
             
-            #assign random grids with hallows 
-            hallowgrid=self.getGrid(hallowrow,hallowcol)
-            if hallowgrid.v != "40" or "41" or "42":
-                hallowgrid.v = random.choice("40","41","42")
+        #     #assign random grids with hallows 
+        #     hallowgrid=self.getGrid(hallowrow,hallowcol)
+        #     if hallowgrid.v != "40" or hallowgrid.v != "41" or hallowgrid.v != "42":
+        #         hallowgrid.v = random.choice(["40","41","42"])
                 
-                hallows += 1
+        #         hallows += 1
             
-        #assign random grids with ghosts 
-        ghosts=0
-        while ghosts < 3:
-            ghostrow=random.randint(0,self.r-1)
-            ghostcol=random.randint(0,self.c-1)
+        # #assign random grids with ghosts 
+        # ghosts=0
+        # while ghosts < 3:
+        #     ghostrow=random.randint(0,self.numRows-1)
+        #     ghostcol=random.randint(0,self.numCols-1)
             
-            #assign random grids with ghosts 
-            ghostgrid=self.getGrid(ghostrow,ghostcol)
-            for i in range(4):
-                if ghostgrid.v != "36":
-                    ghostgrid.v = "36"
+        #     #assign random grids with ghosts 
+        #     ghostgrid=self.getGrid(ghostrow,ghostcol)
+        #     for i in range(4):
+        #         if ghostgrid.v != "36":
+        #             ghostgrid.v = "36"
                     
-                    ghosts+=1
+        #             ghosts+=1
             
-        #assign random grids with professors 
-        professors = 0
-        while professors < 3: 
-            professorrow=random.randint(0,self.r-1)
-            professorcol=random.randint(0,self.c-1)
+        # #assign random grids with professors 
+        # professors = 0
+        # while professors < 3: 
+        #     professorrow=random.randint(0,self.numRows-1)
+        #     professorcol=random.randint(0,self.numCols-1)
             
-            #assign random grids with professors 
-            professorgrid=self.getGrid(professorrow,professorcol)
-            if professorgrid.v != "37" or "38" or "39":
-                professorgrid.v = random.choice("37","38","39")
+        #     #assign random grids with professors 
+        #     professorgrid=self.getGrid(professorrow,professorcol)
+        #     if professorgrid.v != "37" or professorgrid.v !="38" or professorgrid.v !="39":
+        #         professorgrid.v = random.choice(["37","38","39"])
                 
-                professors += 1
+        #         professors += 1
+                
+    def displayBoard(self):
+        for g in self.grids:
+            g.display()
         
             
     def getGrid(self,r,c):
@@ -93,7 +97,22 @@ class Game:
     
     def checkWin(self):
         False 
+        
+#character class (harry)
+class Characters:
+    def __init__(self,x,y,w,h,img):
+        self.x=x
+        self.y=y
+        self.w=w
+        self.h=h
+        self.img=loadImage(path+"/images/"+img)
+        self.dir=1
+        
     
+    
+#MOST URGENT: life, time, hallowcount 
+#background (game start button, instruction button)
+#
         
 
 #How do we slice the image into smaller parts? -> al reem will work on slicing the picture 
@@ -124,16 +143,30 @@ class Game:
     
 g = Game()
 
+#how to move harry according to mousemove 
+
+moveX=0
+moveY=0
+
 def setup():
-    size(1295,710)
+    size(1000,700)
     background(0)
+    g.createboard()
     
 def draw():
+    
     background(0)
+    fill(0)
+    ellipse(moveX,moveY,33,33)
+    g.displayBoard()
 
 def mouseClicked():
     if deathlyhallows.game == "Continue":
         deathlyhallows.openGrid(mouseY//142,mouseX//185)
+        
+def mouseMoved():
+    moveX = mouseX
+    moveY = mouseY
     
     
     # if deathlyhallows.game == "Lose":

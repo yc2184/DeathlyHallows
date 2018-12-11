@@ -34,6 +34,8 @@ class Game:
         self.grids=[]
         self.game="Continue"
         self.bgImg=loadImage(path+"/images/gamebackground.png")
+        self.gsImg=loadImage(path+"/images/gamestart.png")
+        self.state="Start"
         # self.music=player.loadFile(path+"/sounds/inside_bg.mp3")
         # self.music.play()
         
@@ -85,8 +87,13 @@ class Game:
         #         professors += 1
                 
     def displayBoard(self):
-        for g in self.grids:
-            g.display()
+        if self.state == "Play":
+            for g in self.grids:
+                g.display()
+                
+        elif self.state == "Start":
+            image(self.gsImg,0,0,1000,700)
+        
         
             
     def getGrid(self,r,c):
@@ -161,9 +168,16 @@ def draw():
     g.displayBoard()
 
 def mouseClicked():
-    if deathlyhallows.game == "Continue":
-        deathlyhallows.openGrid(mouseY//142,mouseX//185)
+    # if deathlyhallows.game == "Continue":
+    #     deathlyhallows.openGrid(mouseY//142,mouseX//185)
+    
+    if g.state == "Start":
+        print("ssomething")
+        g.state = "Play"
         
+
+        
+    
 def mouseMoved():
     moveX = mouseX
     moveY = mouseY

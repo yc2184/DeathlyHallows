@@ -60,6 +60,10 @@ class Game:
         self.gwImg=loadImage(path+"/images/youwon.jpg")
         self.glImg=loadImage(path+"/images/youlose.jpg")
         self.state="Start"
+        self.startMusic=player.loadFile(path+"/sounds/outside_bg.mp3")
+        self.playMusic=player.loadFile(path+"/sounds/inside_bg.mp3")
+        self.startMusic.rewind()
+        self.startMusic.play()
         self.lives = 3
         self.hallowsFound = 0
         self.captionToDraw = ""
@@ -283,6 +287,11 @@ def mouseClicked():
     if g.state == "Start":
         print("ssomething")
         g.state = "Play"
+        
+        g.startMusic.pause()
+        g.playMusic.rewind()
+        g.playMusic.play() 
+        
     if g.state == "Play":    
         # noFill()
         stroke(20)
@@ -293,15 +302,15 @@ def mouseClicked():
         
         
         
+#for quick check
+# def keyReleased():
+#     if key == 'w':
+#         g.state = "Win"
+#         print("win!")
         
-def keyReleased():
-    if key == 'w':
-        g.state = "Win"
-        print("win!")
-        
-    if key == 'l':
-        g.state = "Lose"
-        print("lose!")
+#     if key == 'l':
+#         g.state = "Lose"
+#         print("lose!")
     
 def mouseMoved():
     moveX = mouseX
